@@ -87,8 +87,9 @@ fun Attack
     {
        Val Goal = Stop OpposingTeam
         if OpposingTeam "all Players" hit = true
-       var return "you win" string: ((if Team One Players all Players hit = false) and (RoundOver = true))
-        return "you win" = true string: ((if Team Two Players all Players hit = false) and RoundOver = true))
+       var return "you win" to Team Two Player string: ((if Team One Players all Players hit = false) and (RoundOver = true))
+        return "you win" to Team One Player = true string: ((if Team Two Players all Players hit = false) and RoundOver = true))
+       val LosingPlayer = if "you win" = true return "You Lose" to OpposingTeam all Players:
         (Team Two Players) is OpposingTeam to (Team One Players)
         (Team One Players) is OpposingTeam to (Team Two Players)
     }
@@ -106,8 +107,22 @@ return reward if Course is complete
     }
 
     //Rounds//
+    fun {
+        BigExplosionAnimation
+        {obstacles move (random 30-50 unitsx) and (random 30-50 units y)}
+        every 1 s, LosingPlayer +10 blocks=y and + X blocks=x (pick random: 1-5 blocks)
+        when LosingPlayer reach max 8000=y, (every 1s LosingPlayer -10 blocks=y and X blocks=x (Pick random: 1-5 blocks))
+      val DyingPlayers = invoke hit as true 1/2 Players for LosingPlayers when y=0),
+        val LosingMessage= Display "You die" for Losing Players
+    }
+    fun RoundOver
+    val BigExplosionAnimation = all Players
+    Random Point Except all "you win" Player
+    {if all Players hit = true in Team one Players or Team Two Players
+        invoke "Big Explosion"
+
+    }
     fun RoundOne {
-        var RoundOver
         var RoundStart
         var MaxRoundDuration =500s  (if all Players hit = true) (if Difficulty is Hard, add 100s to max Round Duration)
         var DifficultyHardMapgeneration
